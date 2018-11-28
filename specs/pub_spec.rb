@@ -4,6 +4,7 @@ require('minitest/rg')
 require_relative('../pub')
 require_relative('../customers')
 require_relative('../drinks')
+require_relative('../food')
 
 class PubTest < MiniTest::Test
 
@@ -15,6 +16,7 @@ class PubTest < MiniTest::Test
     @customer1 = Customer.new("Billy", 20, 30)
     @customer2 = Customer.new("Justin", 2, 12)
     @drinks = [@drink1, @drink2, @drink3]
+    @food = Food.new("Pizza", 5, 4)
 
     @pub.add_drinks(@drinks)
   end
@@ -69,5 +71,18 @@ class PubTest < MiniTest::Test
     assert_equal("No service for you!", @pub.customer_buy(@customer2, @drink1))
   end
 
+  def test_customer_buys_food_till_value_goes_up
+    assert_equal(5,@pub.customer_buy_food(@customer1, @food))
+  end
+
+  def test_food_decreases_wallet
+    @pub.customer_buy_food(@customer1, @food)
+    assert_equal(15, @customer1.wallet)
+  end
+
+  def test_decreased_drunkenness_when_food_purchased
+    @pub.customer_buy_food(@customer1, @food)
+    assert_equal(-4, @customer1.drunkenness)
+  end
 
 end

@@ -38,5 +38,10 @@ class Pub
     return "You're too drunk!"
   end
 
+  def customer_buy_food(customer, food)
+    customer.decrease_wallet(food)
+    customer.decrease_drunkenness(food)
+    return @till += food.price
+  end
 
 end
