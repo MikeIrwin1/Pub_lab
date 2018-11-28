@@ -13,13 +13,10 @@ class Pub
     @drinks.concat(drinks)
   end
 
-  def customer_buy(drink)
-    @till += drink.price
-  end
-
-  def decrease_wallet(customer, drink)
+  def customer_buy(customer, drink)
     customer.decrease_wallet(drink)
     customer.increase_drunkenness(drink)
+    return @till += drink.price
   end
 
   def check_age(customer)

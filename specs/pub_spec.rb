@@ -32,11 +32,11 @@ class PubTest < MiniTest::Test
   end
 
   def test_customer_buys_drink_till_value_goes_up
-    assert_equal(3,@pub.customer_buy(@drink1))
+    assert_equal(3,@pub.customer_buy(@customer, @drink1))
   end
 
   def test_customer_wallet_value_decreased
-    @pub.decrease_wallet(@customer, @drink1)
+    @pub.customer_buy(@customer, @drink1)
     assert_equal(17, @customer.wallet)
   end
 
@@ -49,7 +49,7 @@ class PubTest < MiniTest::Test
   end
 
   def test_customer_drunkenness_increased
-    @pub.decrease_wallet(@customer, @drink1)
+    @pub.customer_buy(@customer, @drink1)
     assert_equal(4, @customer.drunkenness)
   end
 end
