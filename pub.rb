@@ -21,8 +21,10 @@ class Pub
   def customer_buy(customer, drink)
     if @stock[drink] > 0
       if check_age(customer) == true && check_drunkenness(customer) == true
-        customer.decrease_wallet(drink)
-        customer.increase_drunkenness(drink)
+
+        customer.buy_drink(drink)
+        # customer.decrease_wallet(drink)
+        # customer.increase_drunkenness(drink)
         @stock[drink] -= 1
         return @till += drink.price
       else
@@ -48,8 +50,10 @@ class Pub
   end
 
   def customer_buy_food(customer, food)
-    customer.decrease_wallet(food)
-    customer.decrease_drunkenness(food)
+
+    customer.buy_food(food)
+    # customer.decrease_wallet(food)
+    # customer.decrease_drunkenness(food)
     return @till += food.price
   end
 

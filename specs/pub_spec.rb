@@ -10,6 +10,7 @@ class PubTest < MiniTest::Test
 
   def setup
     @pub = Pub.new("The Bear Arms", 0)
+
     @whisky = Drinks.new({name: "whisky", price: 3, drunkenness: 4})
     @wine = Drinks.new({name: "wine", price: 2, drunkenness: 2})
     @irish_car_bomb = Drinks.new({name: "irish car bomb", price: 5, drunkenness: 10})
@@ -17,7 +18,7 @@ class PubTest < MiniTest::Test
     @customer1 = Customer.new("Billy", 20, 30)
     @customer2 = Customer.new("Justin", 2, 12)
     @drinks = [@whisky, @wine, @irish_car_bomb, @beer]
-    @stock = {@whisky => 10, @wine => 20, @irish_car_bomb => 2, @beer => 1}
+    @stock = {@whisky => 10 , @wine => 20, @irish_car_bomb => 2, @beer => 1}
     @food = Food.new("Pizza", 5, 4)
 
     @pub.add_stock(@stock)
@@ -67,7 +68,7 @@ class PubTest < MiniTest::Test
   end
 
   def test_customer_drunkenness_is_below_threshold
-    p @customer1.inspect
+    # p @customer1.inspect
     assert_equal(true, @pub.check_drunkenness(@customer1))
   end
 
@@ -103,13 +104,8 @@ class PubTest < MiniTest::Test
   end
 
   def test_out_of_stock
-    p @pub.inspect
     @pub.customer_buy(@customer1, @beer)
-    p @pub.inspect
     @pub.customer_buy(@customer1, @beer)
-    p @pub.inspect
-    @pub.customer_buy(@customer1, @beer)
-    p @pub.inspect
     @pub.customer_buy(@customer1, @beer)
     assert_equal("Sorry we don't have any left", @pub.customer_buy(@customer1, @beer))
   end
