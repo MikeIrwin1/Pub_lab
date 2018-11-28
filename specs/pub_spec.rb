@@ -12,7 +12,7 @@ class PubTest < MiniTest::Test
     @drink1 = Drinks.new("whisky", 3, 4)
     @drink2 = Drinks.new("wine", 2, 2)
     @drink3 = Drinks.new("irish car bomb", 5, 10)
-    @customer = Customer.new("Billy", 20, 30)
+    @customer1 = Customer.new("Billy", 20, 30)
     @customer2 = Customer.new("Justin", 2, 12)
     @drinks = [@drink1, @drink2, @drink3]
 
@@ -32,16 +32,16 @@ class PubTest < MiniTest::Test
   end
 
   def test_customer_buys_drink_till_value_goes_up
-    assert_equal(3,@pub.customer_buy(@customer, @drink1))
+    assert_equal(3,@pub.customer_buy(@customer1, @drink1))
   end
 
   def test_customer_wallet_value_decreased
-    @pub.customer_buy(@customer, @drink1)
-    assert_equal(17, @customer.wallet)
+    @pub.customer_buy(@customer1, @drink1)
+    assert_equal(17, @customer1.wallet)
   end
 
   def test_customer_age
-    assert_equal(true, @pub.check_age(@customer))
+    assert_equal(true, @pub.check_age(@customer1))
   end
 
   def test_customer_age__under_18
@@ -49,7 +49,25 @@ class PubTest < MiniTest::Test
   end
 
   def test_customer_drunkenness_increased
-    @pub.customer_buy(@customer, @drink1)
-    assert_equal(4, @customer.drunkenness)
+    @pub.customer_buy(@customer1, @drink1)
+    assert_equal(4, @customer1.drunkenness)
   end
+
+  def test_customer_drunkenness_is_too_high
+    @pub.customer_buy(@customer1, @drink3)
+    @pub.customer_buy(@customer1, @drink3)
+    @pub.customer_buy(@customer1, @drink3)
+    @pub.customer_buy(@customer1, @drink3)
+    assert_equal("You're too drunk!", @pub.check_drunkenness(@customer1))
+  end
+
+  def test_customer_drunkenness_is_below_threshold
+    assert_equal(true, @pub.check_drunkenness(@customer1))
+  end
+
+  def test_refuse_service
+    assert_equal("No service for you!", @pub.customer_buy(@customer2, @drink1))
+  end
+
+
 end
