@@ -34,4 +34,9 @@ class PubTest < MiniTest::Test
     assert_equal(3,@pub.customer_buy(@drink1))
   end
 
+  def test_customer_wallet_value_decreased
+    @pub.decrease_wallet(@customer, @drink1)
+    assert_equal(17, @customer.wallet)
+  end
+
 end

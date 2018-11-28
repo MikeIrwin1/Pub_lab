@@ -8,4 +8,8 @@ class Customer
     @age = age
   end
 
+  def decrease_wallet(drink)
+    @wallet -= drink.price
+  end
+
 end

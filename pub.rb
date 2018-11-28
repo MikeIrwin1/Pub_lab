@@ -17,4 +17,8 @@ class Pub
     @till += drink.price
   end
 
+  def decrease_wallet(customer, drink)
+    customer.decrease_wallet(drink)
+  end
+
 end
