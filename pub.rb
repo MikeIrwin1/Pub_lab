@@ -19,6 +19,14 @@ class Pub
 
   def decrease_wallet(customer, drink)
     customer.decrease_wallet(drink)
+    customer.increase_drunkenness(drink)
+  end
+
+  def check_age(customer)
+    if customer.age > 17
+      return true
+    end
+    return "You're too young to drink here!"
   end
 
 end

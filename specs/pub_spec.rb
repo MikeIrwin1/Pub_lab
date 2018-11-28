@@ -9,10 +9,11 @@ class PubTest < MiniTest::Test
 
   def setup
     @pub = Pub.new("The Bear Arms", 0)
-    @drink1 = Drinks.new("whisky", 3)
-    @drink2 = Drinks.new("wine", 2)
-    @drink3 = Drinks.new("irish car bomb", 5)
+    @drink1 = Drinks.new("whisky", 3, 4)
+    @drink2 = Drinks.new("wine", 2, 2)
+    @drink3 = Drinks.new("irish car bomb", 5, 10)
     @customer = Customer.new("Billy", 20, 30)
+    @customer2 = Customer.new("Justin", 2, 12)
     @drinks = [@drink1, @drink2, @drink3]
 
     @pub.add_drinks(@drinks)
@@ -39,4 +40,16 @@ class PubTest < MiniTest::Test
     assert_equal(17, @customer.wallet)
   end
 
+  def test_customer_age
+    assert_equal(true, @pub.check_age(@customer))
+  end
+
+  def test_customer_age__under_18
+    assert_equal("You're too young to drink here!", @pub.check_age(@customer2) )
+  end
+
+  def test_customer_drunkenness_increased
+    @pub.decrease_wallet(@customer, @drink1)
+    assert_equal(4, @customer.drunkenness)
+  end
 end
