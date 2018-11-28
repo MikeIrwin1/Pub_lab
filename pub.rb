@@ -19,14 +19,17 @@ class Pub
   end
 
   def customer_buy(customer, drink)
-
-    if check_age(customer) == true && check_drunkenness(customer) == true
-      customer.decrease_wallet(drink)
-      customer.increase_drunkenness(drink)
-      @stock[drink] -= 1
-      return @till += drink.price
+    if @stock[drink] > 0
+      if check_age(customer) == true && check_drunkenness(customer) == true
+        customer.decrease_wallet(drink)
+        customer.increase_drunkenness(drink)
+        @stock[drink] -= 1
+        return @till += drink.price
+      else
+        return "No service for you!"
+      end
     else
-      return "No service for you!"
+      return "Sorry we don't have any left"
     end
   end
 
@@ -34,14 +37,14 @@ class Pub
     if customer.age > 17
       return true
     end
-    return "You're too young to drink here!"
+    return false
   end
 
   def check_drunkenness(customer)
     if customer.drunkenness < 30
       return true
     end
-    return "You're too drunk!"
+    return false
   end
 
   def customer_buy_food(customer, food)
